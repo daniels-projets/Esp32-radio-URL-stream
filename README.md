@@ -11,6 +11,7 @@ Materiel requis.
      https://github.com/maditnerd/st7789_bitmap
      https://github.com/Bodmer/TFT_eSPI   
      https://github.com/baldram/ESP_VS1053_Library
+     
      PARTIE GRAPHIQUE
      https://www.deviantart.com/red888guns/art/Olympus-2207-Interfaces-6-666155877     
      GIMP-2.10
