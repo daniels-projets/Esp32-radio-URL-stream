@@ -62,8 +62,8 @@
       int max_chaines = 15;
       bool newChaine = true;
 
-const char* SSID = "Bbox-Lux";
-const char* PSK = "2427242711";
+const char* SSID = "@@@@@@@@@";
+const char* PSK = "@@@@@@@@@@";
 
 //-----------------------------------------------------------------------------------------------
 
