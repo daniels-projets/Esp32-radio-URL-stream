@@ -62,8 +62,8 @@
       int max_chaines = 25;
      bool radioData = false;
 
-const char* SSID = "Bbox-Lux";
-const char* PSK = "2427242711";
+const char* SSID = "@@@@@@@@@";
+const char* PSK = "@@@@@@@@@@";
 
 //-----------------------------------------------------------------------------------------------
 
@@ -100,7 +100,6 @@ void setup() {
      SPI.begin();  /* start SPI before starting decoder */    
      stream.startDecoder(VS1053_CS, VS1053_DCS, VS1053_DREQ);
      stream.setVolume(100);
-Serial.print(chaine);
      bouton[1].initButton(&tft, 60, 180, 130, 80, TFT_TRANSPARENT, TFT_TRANSPARENT, TFT_TRANSPARENT, "", 2);
      bouton[0].initButton(&tft, 230, 180, 130, 80, TFT_TRANSPARENT, TFT_TRANSPARENT, TFT_TRANSPARENT, "", 2);
 
@@ -129,8 +128,6 @@ void loop(void) {
                              tft.pushImage(10, 179, 75, 50, upPress);
                              chaine --;
                              if (chaine < 0) { chaine = max_chaines - 1; } 
-Serial.print(chaine);
-radioData = false;
                              tft.pushImage(50, 40,  215, 35, zonestation);
                              tft.pushImage(30, 76,  250, 35, zoneartiste);
                              tft.pushImage(30, 115,  250, 35, zonetitre);
@@ -144,8 +141,6 @@ radioData = false;
                              tft.pushImage(230, 179, 75, 50, downPress);
                              chaine ++;                           
                              if (chaine > max_chaines - 1) { chaine = 0; } 
-Serial.print(chaine);
-radioData = false;
                              tft.pushImage(50, 40,  215, 35, zonestation);
                              tft.pushImage(30, 76,  250, 35, zoneartiste);
                              tft.pushImage(30, 115,  250, 35, zonetitre);
@@ -411,9 +406,8 @@ Serial.print(chaine);
      station = stationOrg.substring(0, 15);
      tft.pushImage(50, 40,  215, 35, zonestation);
      tft.setFreeFont(FSS12);// 9,12,18,24
-     tft.drawCentreString(station, 155, 50, 1);
-Serial.println(":" + stationOrg + ":"); stationOrg = "";     
-radioData = true;
+     tft.drawCentreString(station, 155, 50, 1);    
+     radioData = true;
      tft.setFreeFont(FSS9);// 9,12,18,24
 
 tft.pushImage(10, 179, 75, 50, down);
@@ -425,8 +419,6 @@ tft.pushImage(230, 179, 75, 50, up);
 void audio_showstreamtitle(const char* info) { 
 
      morceau = ("streamtitle: %s\n", info);
-if (morceau == "") { Serial.println("No title info"); }     
-Serial.println(morceau);
      longMorceau = morceau.length();
      for (tiret = 0; tiret <= longMorceau; tiret ++) {
           String lettre = String (morceau.charAt(tiret));
