@@ -54,16 +54,16 @@
          
 #include <ESP32_VS1053_Stream.h>
           ESP32_VS1053_Stream stream;
-   String stationOrg,station, morceau, interpreteOrg, interprete, titreOrg, titre, streamFormat;
+   String stationOrg, station, morceau, interpreteOrg, interprete, titreOrg, titre, streamFormat;
       int longStation, pixStation, posStation, longMorceau, tiret, cesure;
       int longInterprete, pixInterprete, posInterprete;
       int longTitre, pixTitre, posTitre;
       int chaine = 0;
-      int max_chaines = 15;
-      bool newChaine = true;
+      int max_chaines = 25;
+     bool radioData = false;
 
-const char* SSID = "@@@@@@@@@";
-const char* PSK = "@@@@@@@@@@";
+const char* SSID = "Bbox-Lux";
+const char* PSK = "2427242711";
 
 //-----------------------------------------------------------------------------------------------
 
@@ -100,9 +100,9 @@ void setup() {
      SPI.begin();  /* start SPI before starting decoder */    
      stream.startDecoder(VS1053_CS, VS1053_DCS, VS1053_DREQ);
      stream.setVolume(100);
-
-     bouton[1].initButton(&tft, 80, 200, 120, 50, TFT_TRANSPARENT, TFT_TRANSPARENT, TFT_TRANSPARENT, "", 2);
-     bouton[0].initButton(&tft, 250, 200, 120, 50, TFT_TRANSPARENT, TFT_TRANSPARENT, TFT_TRANSPARENT, "", 2);
+Serial.print(chaine);
+     bouton[1].initButton(&tft, 60, 180, 130, 80, TFT_TRANSPARENT, TFT_TRANSPARENT, TFT_TRANSPARENT, "", 2);
+     bouton[0].initButton(&tft, 230, 180, 130, 80, TFT_TRANSPARENT, TFT_TRANSPARENT, TFT_TRANSPARENT, "", 2);
 
 }
 
@@ -111,7 +111,7 @@ void setup() {
 void loop(void) {
     
      connexion_chaine();
-     
+
      uint16_t t_x = 0, t_y = 0;
      boolean pressed = tft.getTouch(&t_y, &t_x); // vrai si contact avec l'écran !!! INVERSE !!!
      for (numero = 0; numero < NOMBRE_BOUTONS; numero++) {
@@ -129,6 +129,8 @@ void loop(void) {
                              tft.pushImage(10, 179, 75, 50, upPress);
                              chaine --;
                              if (chaine < 0) { chaine = max_chaines - 1; } 
+Serial.print(chaine);
+radioData = false;
                              tft.pushImage(50, 40,  215, 35, zonestation);
                              tft.pushImage(30, 76,  250, 35, zoneartiste);
                              tft.pushImage(30, 115,  250, 35, zonetitre);
@@ -142,6 +144,8 @@ void loop(void) {
                              tft.pushImage(230, 179, 75, 50, downPress);
                              chaine ++;                           
                              if (chaine > max_chaines - 1) { chaine = 0; } 
+Serial.print(chaine);
+radioData = false;
                              tft.pushImage(50, 40,  215, 35, zonestation);
                              tft.pushImage(30, 76,  250, 35, zoneartiste);
                              tft.pushImage(30, 115,  250, 35, zonetitre);
@@ -168,65 +172,230 @@ void connexion_chaine() {
   
      switch (chaine) {
        case 0:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Vinilo The 80", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("https://audiopanel.com.ar:8110/radio.mp3");//Vinilo - The 80's $$$
               stream.loop();
         break;      
        case 1:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("DigitIpuls Dance 80", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("http://orion.shoutca.st:8998/stream");//Digital Impulse - Dance from '80s $$$
               stream.loop();
         break;
        case 2:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Love 80's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("https://stream1.themediasite.co.uk:7018/;");//Love 80's Manchester $$$
               stream.loop();
         break;            
        case 3:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("La Roca 80's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("https://audiopanel.com.ar:8000/radio.mp3");//La Rocka 80's $$$
               stream.loop();
         break;            
        case 4:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Cleansing 80's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("http://hemnos.cdnstream.com/1467_128");//Cleansing 80's $$$
               stream.loop();
         break;            
        case 5:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Vitage radio 80's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("https://carina.streamerr.co:8600/stream");//Vintage Radio - 80's Hits $$$
               stream.loop();
         break;            
        case 6:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Totally 80's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("http://67.249.184.45:8000/listen.pls");//Totally 80's FM $$$
               stream.loop();
         break;            
        case 7:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("HM 80's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("http://192.111.140.11:8524/stream");//HM-80's Radio $$$   
               stream.loop();
         break;            
        case 8:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Auckland 80's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("https://streamer.radio.co/s81fc850fd/listen");//Auckland 80's $$$
               stream.loop();
         break;            
        case 9:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("100/100 Hits 90's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("http://pureplay.cdnstream1.com/6056_128.mp3");//100hitz - 90's Hitz $$$
               stream.loop();
         break;            
        case 10:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Cleansing 90's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("http://hemnos.cdnstream.com/1468_128");//Cleansing 90's $$$
               stream.loop();
         break;            
        case 11:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("GotRadio the 90", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("http://pureplay.cdnstream1.com/6052_128.mp3");//GotRadio The 90's $$$
               stream.loop();
         break;            
        case 12:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("La Rocka 90's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("https://audiopanel.com.ar:8030/radio.mp3");//La Rocka 90's $$$
               stream.loop();
         break;            
        case 13:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Non Stop 90's", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("https://stream.btsstream.com:8042/nonstop90s.mp3");//Non-Stop 90's $$$
               stream.loop();
         break;            
        case 14:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("The 90's Network", 155, 50, 1);
+                  radioData = true;
+                  }
               stream.connecttohost("http://uk1.streamingpulse.com:7020/stream");//The 90s Network $$$ 256
               stream.loop();
         break;            
+       case 15:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("70 Mix Radio", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("http://naxos.cdnstream.com/1286_128");//70 mix radio
+              stream.loop();
+        break;            
+       case 16:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Cleansing 70", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("http://hemnos.cdnstream.com/1466_128");//Cleansing 70
+              stream.loop();
+        break;            
+       case 17:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("The 70 Station", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("https://radio.wanderingsheep.net:8060/70s");//The 70 Station
+              stream.loop();
+        break;            
+       case 18:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Cleansing 2000", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("http://hemnos.cdnstream.com/1463_128");//Cleansing 2000
+              stream.loop();
+        break;  
+       case 19:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("HotMix Radio 2000", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("http://streaming.hotmixradio.fr/hotmix-2000s-fr-mp3");//Hot Mix Radio 2000
+              stream.loop();
+        break;            
+       case 20:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Digital Impulse Fantasy", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("http://orion.shoutca.st:8193/stream");//Digital Impulse Fantasy
+              stream.loop();
+        break;            
+       case 21:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Fantasy FM", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("https://eu4.fastcast4u.com/proxy/fantasyfm?mp=/1");//Fantasy FM
+              stream.loop();
+        break;    
+       case 22:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Epic Tones", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("https://s4.radio.co/s35c414576/listen");//Epic Tones
+              stream.loop();
+        break;            
+       case 23:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Chillkyway electronic", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("http://www.sonus.fm:8000/listen.pls?sid=3");//Chillkyway electronic music
+              stream.loop();
+        break;            
+       case 24:
+              if (radioData == false) { 
+                  tft.pushImage(50, 40,  215, 35, zonestation);
+                  tft.drawCentreString("Super Hits", 155, 50, 1);
+                  radioData = true;
+                  }
+              stream.connecttohost("http://stream.zeno.fm/57gz6cs8mbruv");//Super hits
+              stream.loop();
+        break;
 
              }//  switch (chaine)     
                
@@ -236,13 +405,19 @@ void connexion_chaine() {
 //   STREAM DATAS INFOS
 //   ------------------
 void audio_showstation(const char* info) { 
-   
+
+Serial.print(chaine);  
      stationOrg = ("showstation: %s\n", info);     
-     station = stationOrg.substring(0, 20);
+     station = stationOrg.substring(0, 15);
      tft.pushImage(50, 40,  215, 35, zonestation);
      tft.setFreeFont(FSS12);// 9,12,18,24
      tft.drawCentreString(station, 155, 50, 1);
+Serial.println(":" + stationOrg + ":"); stationOrg = "";     
+radioData = true;
      tft.setFreeFont(FSS9);// 9,12,18,24
+
+tft.pushImage(10, 179, 75, 50, down);
+tft.pushImage(230, 179, 75, 50, up);
                       
 }
 
@@ -250,6 +425,7 @@ void audio_showstation(const char* info) {
 void audio_showstreamtitle(const char* info) { 
 
      morceau = ("streamtitle: %s\n", info);
+if (morceau == "") { Serial.println("No title info"); }     
 Serial.println(morceau);
      longMorceau = morceau.length();
      for (tiret = 0; tiret <= longMorceau; tiret ++) {
@@ -267,7 +443,7 @@ Serial.println(morceau);
      tft.pushImage(30, 76,  250, 35, zoneartiste);
      tft.drawCentreString(interprete, 155, 85, 1);
      
-     titreOrg =  String (morceau.substring(cesure + 2, longMorceau)); 
+     titreOrg = String (morceau.substring(cesure + 2, longMorceau)); 
      titre = titreOrg.substring(0, 26);
      tft.pushImage(30, 115,  250, 35, zonetitre);
      tft.drawCentreString(titre, 155, 125, 1);
@@ -277,6 +453,7 @@ Serial.println(morceau);
      tft.pushImage(98, 199,  110, 20, zonestream);
      tft.drawString(streamFormat = ((String (txtCodec)) + "/" 
                  + (String (txtBitrate)) + "kbps"), 118, 200, 2);
+radioData = false;
 
 }
 
